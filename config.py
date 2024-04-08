@@ -1,1 +1,1 @@
-BASE_URL = 'https://betwatch.fr/'
+BASE_URL = 'https://betwatch.fr'
