@@ -8,11 +8,35 @@ from config import BASE_URL
 
 
 class BetWatchParser:
+    """
+    class BetWatchParser get information from BetWatch site
+
+    class has some filters for parser and  filters is set in __init__.py
+    using this filter method get_matches will return runner
+    but you can change this filter while this class work
+    """
     def __init__(self, from_price: int = 0, to_price: int = 99999,
                  from_percentage: int = 0, to_percentage: int = 100,
                  from_coefficient: int = 0, to_coefficient: int = 99999,
                  from_time: int = 0, up_time: int = 150,
                  block_list: list = []) -> None:
+        """
+        magical method __init__ set filters and mainly attributes
+
+        :param from_price: start price
+        :param to_price: end price
+        :param from_percentage: start percentage
+        :param to_percentage: end percentage
+        :param from_coefficient: start coefficient
+        :param to_coefficient: end coefficient
+        :param from_time: start time
+        :param up_time: end time
+        :param block_list: block list for filters
+
+        self.session is used for connect to server and get data from server
+        self.matches is used for save match data such as name: id_match
+        """
+
         self.session = requests.Session()
         self.matches: dict = {}
 
@@ -31,6 +55,14 @@ class BetWatchParser:
         self.block_list = block_list
 
     def get_matches(self, online_matches=False, pre_matches=False) -> None:
+        """
+        this method get name of matches and this is
+
+        :param online_matches: use for get only online matches
+        :param pre_matches:  use for get only pre matches
+
+        this method save match data in self.matches
+        """
         html = self.session.get(f'{BASE_URL}/football/getMain?'
                                 f'date={datetime.now().date()}&'
                                 f'live_only={str(online_matches).lower()}&'
@@ -47,6 +79,15 @@ class BetWatchParser:
             self.matches[match['m']] = match['e']
 
     def get_match_info(self, match: str) -> dict | None:
+        """
+        this method get runner info of match and return it
+        this method use filters that has set in __init__ magical method
+
+        if method can`t find this match, it will return None
+
+        :param match: name of match
+        :return: runner info of match
+        """
         result: dict = {
             'name': match,
             'type': '',
