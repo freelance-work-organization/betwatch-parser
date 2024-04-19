@@ -27,14 +27,18 @@ you can send filters with params
 parser = BetWatchParser('filters')
 ```
 
+param pre_matches: bool, default False use for pre matches<br>
+param live_matches: bool, default False use for live matches<br>
 param from_price: start price<br>
 param to_price: end price<br>
 param from_percentage: start percentage<br>
 param to_percentage: end percentage<br>
 param from_coefficient: start coefficient<br>
 param to_coefficient: end coefficient<br>
-param from_time: start time<br>
-param up_time: end time<br>
+param from_time_1: start time 1<br>
+param to_time_1: end time 1<br>
+param from_time_2: start time 2<br>
+param to_time_2: end time 2<br>
 param block_list: block list for filters<br>
 
 if you want to get matches, you will write this
@@ -42,14 +46,8 @@ if you want to get matches, you will write this
 parser.get_matches('filters')
 ```
 but you can write the filters to get_matches with params<br>
-param online_matches: use for get only online matches<br>
-param pre_matches:  use for get only pre matches<br>
 
 all of the matches is kept in ```parser.matches```<br>
 this is a dict with name and id matches
 
-you can get all of information about match with filters which you set up when you created the object with command
-```python
-parser.get_match_info('match name')
-```
 
